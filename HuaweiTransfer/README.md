@@ -39,7 +39,7 @@ Results
 ```dict
 {'file_exists': True, 'file_transferred': True, 'file_verified': False}
 ```
-###Using the get of direction
+### Using the get of direction
 ```python3
 from huawei_file_transfer import file_transfer
 from netmiko import ConnectHandler
