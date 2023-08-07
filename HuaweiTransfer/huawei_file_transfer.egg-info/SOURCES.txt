@@ -1,0 +1,12 @@
+LICENSE.txt
+README.md
+setup.cfg
+setup.py
+huawei_file_transfer/__init__.py
+huawei_file_transfer/custom_huawei.py
+huawei_file_transfer/custom_ssh_dispatcher.py
+huawei_file_transfer.egg-info/PKG-INFO
+huawei_file_transfer.egg-info/SOURCES.txt
+huawei_file_transfer.egg-info/dependency_links.txt
+huawei_file_transfer.egg-info/requires.txt
+huawei_file_transfer.egg-info/top_level.txt
