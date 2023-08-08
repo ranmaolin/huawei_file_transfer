@@ -1,31 +1,37 @@
 <img src="https://img.shields.io/badge/Python-3.7-blue.svg"><img src="https://img.shields.io/badge/Python-3.8-blue.svg"><img src="https://img.shields.io/badge/Python-3.9-blue.svg"><img src="https://img.shields.io/badge/Python-3.10-blue.svg">
 
 
+
 ## huawei_file_transfer
-huawei_file_transfer is a module dedicated to Huawei device file transfer, which provides PUT and GET transfer methods in a friendly manner. In addition, it also supports file verification, and the file verification method is selected as "Compare file size" instead of "Compare MD5 hash values" because Huawei devices do not support directly generating MD5 hash values for files on the command line.
+
+​		huawei_file_transfer is a module dedicated to Huawei device file transfer, which provides PUT and GET transfer methods in a friendly manner. In addition, it also supports file verification, and the file verification method is selected as "Compare file size" instead of "Compare MD5 hash values" because Huawei devices do not support directly generating MD5 hash values for files on the command line.
+
+
 
 ### Installing
-```commandline
+
+```powershell
 pip install huawei_file_transfer
 ```
+
 ## Example Usage
+
 ### Using the put of direction
-```python3
+
+```python
 from huawei_file_transfer import file_transfer
 from netmiko import ConnectHandler
 
 device_info = {
     "device_type": "huawei",
-    "ip": "192.168.0.253",
+    "host": "192.168.0.253",
     "username": "admin123",
     "password": "Huawei@123",
 }
 
-
-with ConnectHandler(**device_info) as connect:
-    print("已经成功登陆设备" + device_info['ip'])
+with ConnectHandler(**device_info) as net_conn:
     output = file_transfer(
-        connect,
+        net_conn,
         source_file="s5735-l1-v200r022sph150.pat",
         dest_file="s5735-l1-v200r022sph150.pat",
         file_system="flash:",
@@ -35,27 +41,29 @@ with ConnectHandler(**device_info) as connect:
     )
     print(output)
 ```
-Results
+
+**Results**
+
 ```dict
 {'file_exists': True, 'file_transferred': True, 'file_verified': False}
 ```
+
 ### Using the get of direction
-```python3
+
+```python
 from huawei_file_transfer import file_transfer
 from netmiko import ConnectHandler
 
 device_info = {
     "device_type": "huawei",
-    "ip": "192.168.0.253",
+    "host": "192.168.0.253",
     "username": "admin123",
-    "password": "Huawei@123",
+    "password": "CASJcatl@1024",
 }
 
-
-with ConnectHandler(**device_info) as connect:
-    print("已经成功登陆设备" + device_info['ip'])
+with ConnectHandler(**device_info) as net_conn:
     output = file_transfer(
-        connect,
+        net_conn,
         source_file="s5735-l1-v200r022sph150.pat",
         dest_file="s5735-l1-v200r022sph150.pat",
         file_system="flash:",
@@ -65,27 +73,29 @@ with ConnectHandler(**device_info) as connect:
     )
     print(output)
 ```
-Results
+
+**Results**
+
 ```dict
 {'file_exists': True, 'file_transferred': True, 'file_verified': False}
 ```
+
 ### Using process_bar functions to display the progress of transferring files in real time
-```python3
+
+```python
 from huawei_file_transfer import file_transfer,progress_bar
 from netmiko import ConnectHandler
 
 device_info = {
     "device_type": "huawei",
-    "ip": "192.168.0.253",
+    "host": "192.168.0.253",
     "username": "admin123",
     "password": "Huawei@123",
 }
 
-
-with ConnectHandler(**device_info) as connect:
-    print("已经成功登陆设备" + device_info['ip'])
+with ConnectHandler(**device_info) as net_conn:
     output = file_transfer(
-        connect,
+        net_conn,
         source_file="s5735-l1-v200r022sph150.pat",
         dest_file="s5735-l1-v200r022sph150.pat",
         file_system="flash:",
@@ -96,23 +106,29 @@ with ConnectHandler(**device_info) as connect:
     )
     print(output)
 ```
-Results
+
+**Results**
+
 ```text
 Transferring file: s5735-l1-v200r022sph150.pat
 
+
+
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>| (100.00%)
+
 {'file_exists': True, 'file_transferred': True, 'file_verified': False}
 ```
+
 ### Verify the file
+
 ```python
 from huawei_file_transfer import file_transfer,progress_bar
 from netmiko import ConnectHandler
 
-
 device_info = {
     "device_type": "huawei",
     "host": "192.168.0.253",
-    "username": "admin",
+    "username": "admin123",
     "password": "Huawei@123",
 }
 
@@ -129,10 +145,16 @@ with ConnectHandler(**device_info) as net_conn:
     )
     print(output)
 ```
-Results
+
+**Results**
+
 ```text
 Transferring file: s5735-l1-v200r022sph150.pat
 
+
+
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>| (100.00%)
+
 {'file_exists': True, 'file_transferred': True, 'file_verified': True}
 ```
+
